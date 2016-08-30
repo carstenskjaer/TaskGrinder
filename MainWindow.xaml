@@ -12,11 +12,14 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0">
-            <Label x:Name="label" Content="Label"/>
-            <ListBox x:Name="listBox" Margin="10,10,10,0" AutomationProperties.Name="TaskListBox">
+        <DockPanel Grid.Column="0">
+            <Label x:Name="label" Content="Tasks" DockPanel.Dock="Top"/>
+            <ListBox x:Name="taskListBox" Margin="10,10,10,10" DockPanel.Dock="Top">
             </ListBox>
+            <StackPanel Height="30" DockPanel.Dock="Bottom">
+                <Button x:Name="button" Content="Add" HorizontalAlignment="Right"/>
             </StackPanel>
+        </DockPanel>
         <StackPanel Grid.Column="1"/>
     </Grid>
 </Window>
