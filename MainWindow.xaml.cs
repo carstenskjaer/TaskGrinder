@@ -27,11 +27,19 @@ namespace TaskGrinder
 		}
 
 		public ObservableCollection<Task> Tasks { get; } = new ObservableCollection<Task>();
-		public ObservableCollection<Task> WorkList { get; } = new ObservableCollection<Task>();
+		public ObservableCollection<TaskRunner> WorkList { get; } = new ObservableCollection<TaskRunner>();
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
 			Tasks.Add(new Task("new"));
+		}
+
+		private void taskListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			if (taskListBox.SelectedItem != null)
+			{
+				WorkList.Add(((Task)taskListBox.SelectedItem).GetTaskRunner());
+			}
 		}
 	}
 }

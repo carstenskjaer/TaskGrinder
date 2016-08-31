@@ -13,9 +13,12 @@ namespace TaskGrinder
 			Name = name;
 		}
 
-		public bool Execute()
+		public TaskRunner GetTaskRunner()
 		{
-			return false;
+			return new TaskRunner(Name,
+				"",
+				"",
+				"");
 		}
 
 		public string Name { get; set; } = "";
