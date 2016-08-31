@@ -6,14 +6,26 @@ using System.Threading.Tasks;
 
 namespace TaskGrinder
 {
-    class Task
-    {
-        public bool Execute()
-        {
-            return false;
-        }
+	public class Task
+	{
+		public Task(string name)
+		{
+			Name = name;
+		}
 
-        public string CommandLine { set; get; }
-    }
+		public bool Execute()
+		{
+			return false;
+		}
+
+		public string Name { get; set; } = "";
+
+		public string CommandLine { set; get; }
+
+		public override string ToString()
+		{
+			return Name;
+		}
+	}
 
 }

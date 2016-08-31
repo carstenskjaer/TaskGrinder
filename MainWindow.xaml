@@ -5,21 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskGrinder"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid Margin="0,14,-0.333,-14.333">
+        Title="MainWindow" Height="350" Width="525"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        >
+    <Grid Margin="5,5,5,5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <DockPanel Grid.Column="0">
-            <Label x:Name="label" Content="Tasks" DockPanel.Dock="Top"/>
-            <ListBox x:Name="taskListBox" Margin="10,10,10,10" DockPanel.Dock="Top">
-            </ListBox>
-            <StackPanel Height="30" DockPanel.Dock="Bottom">
-                <Button x:Name="button" Content="Add" HorizontalAlignment="Right"/>
+            <Label Content="Tasks:" DockPanel.Dock="Top"/>
+            <StackPanel DockPanel.Dock="Bottom">
+                <Button Content="Add" HorizontalAlignment="Right" Margin="5,5,5,5" Click="Button_Click"/>
             </StackPanel>
+            <ListBox x:Name="taskListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=Tasks}">
+            </ListBox>
         </DockPanel>
         <StackPanel Grid.Column="1"/>
-    </Grid>
+
+		<DockPanel Grid.Column="1">
+			<Label Content="Work:" DockPanel.Dock="Top"/>
+			<StackPanel DockPanel.Dock="Bottom">
+				<Button Content="Run" HorizontalAlignment="Right" Margin="5,5,5,5" Click="Button_Click"/>
+			</StackPanel>
+			<ListBox x:Name="workListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=WorkList}">
+			</ListBox>
+		</DockPanel>
+	</Grid>
 </Window>

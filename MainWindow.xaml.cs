@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,14 +16,22 @@ using System.Windows.Shapes;
 
 namespace TaskGrinder
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
+	{
+		public MainWindow()
+		{
+			InitializeComponent();
+		}
+
+		public ObservableCollection<Task> Tasks { get; } = new ObservableCollection<Task>();
+		public ObservableCollection<Task> WorkList { get; } = new ObservableCollection<Task>();
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			Tasks.Add(new Task("new"));
+		}
+	}
 }
