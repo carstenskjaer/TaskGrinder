@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskRunner.cs" />
     <Page Include="MainWindow.xaml">
@@ -96,6 +97,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\button-error.png" />
+    <Resource Include="Resources\button-pause.png" />
+    <Resource Include="Resources\button-ready.png" />
+    <Resource Include="Resources\button-working.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

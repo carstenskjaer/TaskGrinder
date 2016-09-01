@@ -24,7 +24,10 @@ namespace TaskGrinder
 		public MainWindow()
 		{
 			InitializeComponent();
+			Controller = Controller.Instance;
 		}
+
+		public Controller Controller { get; }
 
 		public ObservableCollection<Task> Tasks { get; } = new ObservableCollection<Task>();
 		public ObservableCollection<TaskRunner> WorkList { get; } = new ObservableCollection<TaskRunner>();
@@ -40,6 +43,11 @@ namespace TaskGrinder
 			{
 				WorkList.Add(((Task)taskListBox.SelectedItem).GetTaskRunner());
 			}
+		}
+
+		private void StatusButton_Click(object sender, RoutedEventArgs e)
+		{
+			Controller.ToggleRunState();
 		}
 	}
 }

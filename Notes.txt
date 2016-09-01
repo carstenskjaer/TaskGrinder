@@ -1,3 +1,8 @@
+Run state: Done, Working, Paused, Halted (due to error)
+
+
+
+
 			<Button x:Name="ProcessButton" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ProcessButton_Click">
 				<Image Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center" >
 					<Image.Style>

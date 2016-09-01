@@ -27,7 +27,28 @@
 		<DockPanel Grid.Column="1">
 			<Label Content="Work:" DockPanel.Dock="Top"/>
 			<StackPanel DockPanel.Dock="Bottom">
-				<Button Content="Run" HorizontalAlignment="Right" Margin="5,5,5,5" Click="Button_Click"/>
+				<Button x:Name="StatusButton" HorizontalAlignment="right" VerticalAlignment="Center" Click="StatusButton_Click">
+					<Image Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center" >
+						<Image.Style>
+							<Style TargetType="{x:Type Image}">
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding Path=Controller.RunState, Mode=OneWay}" Value="RunState.Done">
+										<Setter Property="Source" Value="../Resources/button-ready.png" />
+									</DataTrigger>
+									<DataTrigger Binding="{Binding Path=Controller.RunState, Mode=OneWay}" Value="RunState.Working">
+										<Setter Property="Source" Value="../Resources/button-working.png" />
+									</DataTrigger>
+									<DataTrigger Binding="{Binding Path=Controller.RunState, Mode=OneWay}" Value="RunState.Paused">
+										<Setter Property="Source" Value="../Resources/button-pause.png" />
+									</DataTrigger>
+									<DataTrigger Binding="{Binding Path=Controller.RunState, Mode=OneWay}" Value="RunState.Halted">
+										<Setter Property="Source" Value="../Resources/button-error.png" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</Image.Style>
+					</Image>
+				</Button>
 			</StackPanel>
 			<ListBox x:Name="workListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=WorkList}">
 			</ListBox>
