@@ -25,10 +25,6 @@ namespace TaskGrinder
 
 		public string CommandLine { set; get; }
 
-		public override string ToString()
-		{
-			return Name;
-		}
+		public override string ToString() => Name;
 	}
-
 }

@@ -31,7 +31,7 @@ namespace TaskGrinder
 
 		public int ReturnCode { get; private set; } = -1;
 
-		public bool Succeeded { get { return ReturnCode == 0; } }
+		public bool Succeeded { get { return State == RunState.Done && ReturnCode == 0; } }
 
 		public Task<bool> Execute()
 		{
