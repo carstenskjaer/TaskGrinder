@@ -1,13 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TaskGrinder
 {
-	public class Task
+	public class Task : INotifyPropertyChanged
 	{
+		// Support property binding from WPF gui
+		public event PropertyChangedEventHandler PropertyChanged;
+		private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+		{
+			if (PropertyChanged != null)
+			{
+				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+
 		public Task(string name)
 		{
 			Name = name;
@@ -21,9 +33,10 @@ namespace TaskGrinder
 				"");
 		}
 
-		public string Name { get; set; } = "";
-
-		public string CommandLine { set; get; }
+		public string Name { get; private set; }
+		public string FileName { get; private set; }
+		public string WorkingDir { get; private set; }
+		public string Arguments { get; private set; }
 
 		public override string ToString() => Name;
 	}
