@@ -17,14 +17,24 @@ namespace TaskGrinder
 	/// <summary>
 	/// Interaction logic for TaskEditWindow.xaml
 	/// </summary>
-	public partial class TaskEditWindow : Window
+	public partial class TaskEditDialog : Window
 	{
-		public TaskEditWindow(Task task)
+		public TaskEditDialog(Task task)
 		{
 			Task = task;
 			InitializeComponent();
 		}
 
 		public Task Task = null;
+
+		private void OKButton_Click(object sender, RoutedEventArgs e)
+		{
+			DialogResult = true;
+		}
+
+		private void CancelButton_Click(object sender, RoutedEventArgs e)
+		{
+			DialogResult = false;
+		}
 	}
 }

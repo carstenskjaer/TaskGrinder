@@ -19,7 +19,7 @@
             <StackPanel DockPanel.Dock="Bottom">
                 <Button Content="Add" HorizontalAlignment="Right" Margin="5,5,5,5" Click="Button_Click"/>
             </StackPanel>
-            <ListBox x:Name="taskListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=Tasks}" MouseDoubleClick="taskListBox_MouseDoubleClick">
+            <ListBox x:Name="taskListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=Controller.Tasks}" MouseDoubleClick="taskListBox_MouseDoubleClick">
             </ListBox>
         </DockPanel>
         <StackPanel Grid.Column="1"/>
@@ -50,7 +50,7 @@
 					</Image>
 				</Button>
 			</StackPanel>
-			<ListBox x:Name="workListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=WorkList}">
+			<ListBox x:Name="workListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=Controller.WorkList}">
 			</ListBox>
 		</DockPanel>
 	</Grid>

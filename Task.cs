@@ -5,9 +5,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.IO;
 
 namespace TaskGrinder
 {
+	[DataContract]
 	public class Task : INotifyPropertyChanged
 	{
 		// Support property binding from WPF gui
@@ -20,23 +23,27 @@ namespace TaskGrinder
 			}
 		}
 
-		public Task(string name)
+		public Task()
 		{
-			Name = name;
 		}
 
 		public TaskRunner GetTaskRunner()
 		{
+			var workDir = WorkingDir == "" ? Path.GetDirectoryName(FileName) : WorkingDir;
 			return new TaskRunner(Name,
-				"",
-				"",
-				"");
+				FileName,
+				workDir,
+				Arguments);
 		}
 
-		public string Name { get; private set; }
-		public string FileName { get; private set; }
-		public string WorkingDir { get; private set; }
-		public string Arguments { get; private set; }
+		[DataMember]
+		public string Name { get; set; } = "";
+		[DataMember]
+		public string FileName { get; private set; } = "";
+		[DataMember]
+		public string WorkingDir { get; private set; } = "";
+		[DataMember]
+		public string Arguments { get; private set; } = "";
 
 		public override string ToString() => Name;
 	}
