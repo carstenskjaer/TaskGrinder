@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskGrinder"
         mc:Ignorable="d"
-        Title="Edit Task" Height="300" Width="442.105">
+        Title="Edit Task" Height="300" Width="442.105"
+				DataContext="{Binding RelativeSource={RelativeSource Self}}">
 	<Grid Margin="0">
 		<Label Content="Name:" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top"/>
 		<TextBox HorizontalAlignment="Left" Height="23" Margin="85,10,0,0" TextWrapping="Wrap" Text="{Binding Path=Task.Name}" VerticalAlignment="Top" Width="293"/>

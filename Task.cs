@@ -37,13 +37,13 @@ namespace TaskGrinder
 		}
 
 		[DataMember]
-		public string Name { get; set; } = "";
+		public string Name { get; set; } = "foobar";
 		[DataMember]
-		public string FileName { get; private set; } = "";
+		public string FileName { get; set; } = "";
 		[DataMember]
-		public string WorkingDir { get; private set; } = "";
+		public string WorkingDir { get; set; } = "";
 		[DataMember]
-		public string Arguments { get; private set; } = "";
+		public string Arguments { get; set; } = "";
 
 		public override string ToString() => Name;
 	}

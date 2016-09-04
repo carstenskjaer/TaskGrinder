@@ -25,7 +25,7 @@ namespace TaskGrinder
 			InitializeComponent();
 		}
 
-		public Task Task = null;
+		public Task Task { get; set; } = null;
 
 		private void OKButton_Click(object sender, RoutedEventArgs e)
 		{

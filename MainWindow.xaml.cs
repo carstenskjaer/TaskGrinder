@@ -23,8 +23,8 @@ namespace TaskGrinder
 	{
 		public MainWindow()
 		{
-			InitializeComponent();
 			Controller = Controller.Instance;
+			InitializeComponent();
 		}
 
 		public Controller Controller { get; }
