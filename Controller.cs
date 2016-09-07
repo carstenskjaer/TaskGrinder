@@ -57,24 +57,15 @@ namespace TaskGrinder
 
 		public void LoadTasks()
 		{
-			var ds = new DataContractSerializer(typeof(Task));
+			var ds = new DataContractSerializer(typeof(ObservableCollection<Task>));
 
 			try
 			{
 				using (var stream = File.OpenRead(TaskFileName))
 				{
-					while (true)
-					{
-						try
-						{
-							Task t = (Task)ds.ReadObject(stream);
-							Tasks.Add(t);
-						}
-						catch(System.Xml.XmlException)
-						{
-							break;
-						}
-					}
+					var tasks = (ObservableCollection<Task>)ds.ReadObject(stream);
+					foreach (var t in tasks)
+						Tasks.Add(t);
 				}
 			}
 			catch(IOException)
@@ -85,14 +76,11 @@ namespace TaskGrinder
 
 		public void SaveTasks()
 		{
-			var ds = new DataContractSerializer(typeof(Task));
+			var ds = new DataContractSerializer(typeof(ObservableCollection<Task>));
 
 			using (var stream = File.Create(TaskFileName))
 			{
-				foreach(var t in Tasks)
-				{
-					ds.WriteObject(stream, t);
-				}
+				ds.WriteObject(stream, Tasks);
 			}
 		}
 
