@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:TaskGrinder"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         >
 	<Grid Margin="5,5,5,5">
 		<Grid.ColumnDefinitions>
@@ -19,7 +18,7 @@
 			<StackPanel DockPanel.Dock="Bottom">
 				<Button Content="Add" HorizontalAlignment="Right" Margin="5,5,5,5" Click="Button_Click"/>
 			</StackPanel>
-			<ListBox x:Name="taskListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=Controller.Tasks}" MouseDoubleClick="taskListBox_MouseDoubleClick">
+			<ListBox x:Name="taskListBox" Margin="10,10,10,10" ItemsSource="{Binding Tasks}" MouseDoubleClick="taskListBox_MouseDoubleClick">
 				<ListBox.Resources>
 					<ContextMenu x:Key="listBoxContextMenu">
 						<MenuItem Header="Delete" Click="DeleteTask_Click"/>
@@ -43,16 +42,16 @@
 						<Image.Style>
 							<Style TargetType="{x:Type Image}">
 								<Style.Triggers>
-									<DataTrigger Binding="{Binding Path=Controller.RunState, Mode=OneWay}" Value="RunState.Done">
+									<DataTrigger Binding="{Binding Path=RunState, Mode=OneWay}" Value="RunState.Done">
 										<Setter Property="Source" Value="../Resources/button-ready.png" />
 									</DataTrigger>
-									<DataTrigger Binding="{Binding Path=Controller.RunState, Mode=OneWay}" Value="RunState.Working">
+									<DataTrigger Binding="{Binding Path=RunState, Mode=OneWay}" Value="RunState.Working">
 										<Setter Property="Source" Value="../Resources/button-working.png" />
 									</DataTrigger>
-									<DataTrigger Binding="{Binding Path=Controller.RunState, Mode=OneWay}" Value="RunState.Paused">
+									<DataTrigger Binding="{Binding Path=RunState, Mode=OneWay}" Value="RunState.Paused">
 										<Setter Property="Source" Value="../Resources/button-pause.png" />
 									</DataTrigger>
-									<DataTrigger Binding="{Binding Path=Controller.RunState, Mode=OneWay}" Value="RunState.Halted">
+									<DataTrigger Binding="{Binding Path=RunState, Mode=OneWay}" Value="RunState.Halted">
 										<Setter Property="Source" Value="../Resources/button-error.png" />
 									</DataTrigger>
 								</Style.Triggers>
@@ -61,7 +60,7 @@
 					</Image>
 				</Button>
 			</StackPanel>
-			<ListBox x:Name="workListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=Controller.WorkList}">
+			<ListBox x:Name="workListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=WorkList}">
 			</ListBox>
 		</DockPanel>
 	</Grid>

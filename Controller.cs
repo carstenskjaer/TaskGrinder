@@ -129,6 +129,7 @@ namespace TaskGrinder
 		{
 			var taskEditDialog = new TaskEditDialog(task);
 			var result = taskEditDialog.ShowDialog();
+			NotifyPropertyChanged("Tasks");
 		}
 	}
 }

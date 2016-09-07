@@ -43,6 +43,7 @@ namespace TaskGrinder
 			get { return _name; }
 			set { if (value != _name) { _name = value; NotifyPropertyChanged(); } }
 		}
+		
 		private string _fileName = "";
 		[DataMember]
 		public string FileName
@@ -50,6 +51,7 @@ namespace TaskGrinder
 			get { return _fileName; }
 			set { if (value != _fileName) { _fileName = value; NotifyPropertyChanged(); } }
 		}
+		
 		private string _workingDir = "";
 		[DataMember]
 		public string WorkingDir
@@ -57,6 +59,7 @@ namespace TaskGrinder
 			get { return _workingDir; }
 			set { if (value != _workingDir) { _workingDir = value; NotifyPropertyChanged(); } }
 		}
+
 		private string _arguments = "";
 		[DataMember]
 		public string Arguments

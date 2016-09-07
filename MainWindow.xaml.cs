@@ -23,16 +23,13 @@ namespace TaskGrinder
 	{
 		public MainWindow()
 		{
-			Controller = Controller.Instance;
 			InitializeComponent();
+			DataContext = Controller.Instance;
 		}
-
-		public Controller Controller { get; }
-
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			Controller.AddTask();
+			Controller.Instance.AddTask();
 		}
 
 		private void taskListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -40,7 +37,7 @@ namespace TaskGrinder
 			var selectedTask = taskListBox.SelectedItem as Task;
 			if (selectedTask != null)
 			{
-				Controller.AddTaskToWorkList(selectedTask);
+				Controller.Instance.AddTaskToWorkList(selectedTask);
 			}
 		}
 
@@ -49,7 +46,7 @@ namespace TaskGrinder
 			var selectedTask = taskListBox.SelectedItem as Task;
 			if (selectedTask != null)
 			{
-				Controller.DeleteTask(selectedTask);
+				Controller.Instance.DeleteTask(selectedTask);
 			}
 		}
 		private void EditTask_Click(object sender, RoutedEventArgs e)
@@ -57,13 +54,13 @@ namespace TaskGrinder
 			var selectedTask = taskListBox.SelectedItem as Task;
 			if (selectedTask != null)
 			{
-				Controller.EditTask(selectedTask);
+				Controller.Instance.EditTask(selectedTask);
 			}
 		}
 
 		private void StatusButton_Click(object sender, RoutedEventArgs e)
 		{
-			Controller.ToggleRunState();
+			Controller.Instance.ToggleRunState();
 		}
 	}
 }
