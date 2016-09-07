@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TaskGrinder
 {
@@ -32,15 +33,16 @@ namespace TaskGrinder
 
 		private Controller()
 		{
+			LoadTasks();
 		}
 
 		public static Controller Instance { get; } = new Controller();
 
-		private RunState runState = RunState.Halted;
+		private RunState _runState = RunState.Halted;
 		public RunState RunState
 		{
-			get { return runState; }
-			set { if (value != runState) { runState = value; NotifyPropertyChanged(); } }
+			get { return _runState; }
+			set { if (value != _runState) { _runState = value; NotifyPropertyChanged(); } }
 		}
 
 		public void ToggleRunState()
@@ -57,16 +59,27 @@ namespace TaskGrinder
 		{
 			var ds = new DataContractSerializer(typeof(Task));
 
-			using (var stream = File.OpenRead(TaskFileName))
+			try
 			{
-				while(true)
+				using (var stream = File.OpenRead(TaskFileName))
 				{
-					Task t = (Task)ds.ReadObject(stream);
-					if (t == null)
-						break;
-
-					Tasks.Add(t);
+					while (true)
+					{
+						try
+						{
+							Task t = (Task)ds.ReadObject(stream);
+							Tasks.Add(t);
+						}
+						catch(System.Xml.XmlException)
+						{
+							break;
+						}
+					}
 				}
+			}
+			catch(IOException)
+			{
+				// Ignore
 			}
 		}
 
@@ -85,8 +98,6 @@ namespace TaskGrinder
 
 		public void AddTask()
 		{
-			SaveTasks();
-
 			var t = new Task();
 			var taskEditDialog = new TaskEditDialog(t);
 			var result = taskEditDialog.ShowDialog();
@@ -96,6 +107,28 @@ namespace TaskGrinder
 				Tasks.Add(t);
 				SaveTasks();
 			}
+		}
+
+		public void AddTaskToWorkList(Task task)
+		{
+			try
+			{
+				WorkList.Add(task.GetTaskRunner());
+			}
+			catch(Exception e)
+			{
+                MessageBox.Show("Could not schedule task: " + e.Message, "Error", MessageBoxButton.OK);
+			}
+		}
+
+		public void DeleteTask(Task task)
+		{
+			Tasks.Remove(task);
+		}
+		public void EditTask(Task task)
+		{
+			var taskEditDialog = new TaskEditDialog(task);
+			var result = taskEditDialog.ShowDialog();
 		}
 	}
 }

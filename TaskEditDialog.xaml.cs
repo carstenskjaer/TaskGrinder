@@ -21,19 +21,20 @@ namespace TaskGrinder
 	{
 		public TaskEditDialog(Task task)
 		{
-			Task = task;
+			DataContext = task;
 			InitializeComponent();
+			BindingGroup.BeginEdit();
 		}
-
-		public Task Task { get; set; } = null;
 
 		private void OKButton_Click(object sender, RoutedEventArgs e)
 		{
+			BindingGroup.CommitEdit();
 			DialogResult = true;
 		}
 
 		private void CancelButton_Click(object sender, RoutedEventArgs e)
 		{
+			BindingGroup.CancelEdit();
 			DialogResult = false;
 		}
 	}

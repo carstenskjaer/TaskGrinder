@@ -37,9 +37,27 @@ namespace TaskGrinder
 
 		private void taskListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
-			if (taskListBox.SelectedItem != null)
+			var selectedTask = taskListBox.SelectedItem as Task;
+			if (selectedTask != null)
 			{
-				//WorkList.Add(((Task)taskListBox.SelectedItem).GetTaskRunner());
+				Controller.AddTaskToWorkList(selectedTask);
+			}
+		}
+
+		private void DeleteTask_Click(object sender, RoutedEventArgs e)
+		{
+			var selectedTask = taskListBox.SelectedItem as Task;
+			if (selectedTask != null)
+			{
+				Controller.DeleteTask(selectedTask);
+			}
+		}
+		private void EditTask_Click(object sender, RoutedEventArgs e)
+		{
+			var selectedTask = taskListBox.SelectedItem as Task;
+			if (selectedTask != null)
+			{
+				Controller.EditTask(selectedTask);
 			}
 		}
 

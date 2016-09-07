@@ -36,15 +36,34 @@ namespace TaskGrinder
 				Arguments);
 		}
 
+		private string _name = "New task";
 		[DataMember]
-		public string Name { get; set; } = "foobar";
+		public string Name
+		{
+			get { return _name; }
+			set { if (value != _name) { _name = value; NotifyPropertyChanged(); } }
+		}
+		private string _fileName = "";
 		[DataMember]
-		public string FileName { get; set; } = "";
+		public string FileName
+		{
+			get { return _fileName; }
+			set { if (value != _fileName) { _fileName = value; NotifyPropertyChanged(); } }
+		}
+		private string _workingDir = "";
 		[DataMember]
-		public string WorkingDir { get; set; } = "";
+		public string WorkingDir
+		{
+			get { return _workingDir; }
+			set { if (value != _workingDir) { _workingDir = value; NotifyPropertyChanged(); } }
+		}
+		private string _arguments = "";
 		[DataMember]
-		public string Arguments { get; set; } = "";
-
+		public string Arguments
+		{
+			get { return _arguments; }
+			set { if (value != _arguments) { _arguments = value; NotifyPropertyChanged(); } }
+		}
 		public override string ToString() => Name;
 	}
 }
