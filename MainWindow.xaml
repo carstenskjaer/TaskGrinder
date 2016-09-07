@@ -30,6 +30,11 @@
 						<Setter Property="ContextMenu" Value="{StaticResource listBoxContextMenu}"/>
 					</Style>
 				</ListBox.ItemContainerStyle>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Name}" />
+					</DataTemplate>
+				</ListBox.ItemTemplate>
 			</ListBox>
 		</DockPanel>
 		<StackPanel Grid.Column="1"/>
