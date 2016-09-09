@@ -15,11 +15,6 @@ using System.Windows;
 namespace TaskGrinder
 {
 
-	public enum RunState
-	{
-		Done, Working, Paused, Halted
-	}
-
 	public class Controller : INotifyPropertyChanged
 	{
 		// Support property binding from WPF gui
@@ -35,20 +30,17 @@ namespace TaskGrinder
 		private Controller()
 		{
 			LoadTasks();
+
+			System.Threading.Tasks.Task.Run(() => RunnerTask());
 		}
 
 		public static Controller Instance { get; } = new Controller();
 
-		private RunState _runState = RunState.Halted;
-		public RunState RunState
+		private bool _paused = false;
+		public bool Paused
 		{
-			get { return _runState; }
-			set { if (value != _runState) { _runState = value; NotifyPropertyChanged(); } }
-		}
-
-		public void ToggleRunState()
-		{
-
+			get { return _paused; }
+			set { if (value != _paused) { _paused = value; NotifyPropertyChanged(); signal.Release(); } }
 		}
 
 		public ObservableCollection<Task> Tasks { get; } = new ObservableCollection<Task>();
@@ -126,21 +118,19 @@ namespace TaskGrinder
 		
 		private SemaphoreSlim signal = new SemaphoreSlim(0, 1);
 
-		 private async void RunnerTask()
+		private async void RunnerTask()
 		{
 			while(true)
 			{
-				if (RunState == RunState.Paused)
+				var task = WorkList.FirstOrDefault(t => t.State == TaskRunner.RunState.NotStarted);
+
+				if (Paused || task == null)
 				{
 					await signal.WaitAsync();
+					continue;
 				}
 
-				if (WorkList.Count == 0)
-				{
-					await signal.WaitAsync();
-				}
-
-				await WorkList.First(t => t.State == TaskRunner.RunState.NotStarted).Execute();
+				await task.Execute();
 				
 			}
 		}

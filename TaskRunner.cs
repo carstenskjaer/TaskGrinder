@@ -53,11 +53,14 @@ namespace TaskGrinder
 			{
 				Output = process.StandardOutput.ReadToEnd();
 				ReturnCode = process.ExitCode;
+				State = RunState.Done;
 				tcs.SetResult(Succeeded);
 				process.Dispose();
 			};
 
 			process.Start();
+
+			State = RunState.Running;
 
 			return tcs.Task;
 		}

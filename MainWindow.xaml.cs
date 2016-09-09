@@ -58,9 +58,9 @@ namespace TaskGrinder
 			}
 		}
 
-		private void StatusButton_Click(object sender, RoutedEventArgs e)
+		private void PausedButton_Click(object sender, RoutedEventArgs e)
 		{
-			Controller.Instance.ToggleRunState();
+			Controller.Instance.Paused = !Controller.Instance.Paused;
 		}
 	}
 }

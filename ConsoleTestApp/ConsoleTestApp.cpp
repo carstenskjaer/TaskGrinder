@@ -2,6 +2,7 @@
 //
 
 #include <stdio.h>
+#include <windows.h>
 
 int main(int argc, char** argv)
 {
@@ -11,6 +12,8 @@ int main(int argc, char** argv)
 	{
 		printf("%i: %s\n", i, argv[i]);
 	}
+
+	Sleep(2000);
 
     return 0;
 }
