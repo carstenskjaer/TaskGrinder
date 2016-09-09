@@ -51,10 +51,10 @@
 							<Style TargetType="{x:Type Image}">
 								<Style.Triggers>
 									<DataTrigger Binding="{Binding Path=Paused, Mode=OneWay}" Value="false">
-										<Setter Property="Source" Value="../Resources/button-ready.png" />
+										<Setter Property="Source" Value="Resources/button-ready.png" />
 									</DataTrigger>
 									<DataTrigger Binding="{Binding Path=Paused, Mode=OneWay}" Value="true">
-										<Setter Property="Source" Value="../Resources/button-pause.png" />
+										<Setter Property="Source" Value="Resources/button-pause.png" />
 									</DataTrigger>
 								</Style.Triggers>
 							</Style>

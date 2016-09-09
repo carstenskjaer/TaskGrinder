@@ -106,16 +106,16 @@ namespace TaskGrinder
 		public void DeleteTask(Task task)
 		{
 			Tasks.Remove(task);
+			SaveTasks();
 		}
 
 		public void EditTask(Task task)
 		{
 			var taskEditDialog = new TaskEditDialog(task);
 			var result = taskEditDialog.ShowDialog();
-			NotifyPropertyChanged("Tasks");
+			SaveTasks();
 		}
 
-		
 		private SemaphoreSlim signal = new SemaphoreSlim(0, 1);
 
 		private async void RunnerTask()
