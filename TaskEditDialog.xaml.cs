@@ -37,5 +37,19 @@ namespace TaskGrinder
 			BindingGroup.CancelEdit();
 			DialogResult = false;
 		}
+
+		private void ExeFileSelectButton_Click(object sender, RoutedEventArgs e)
+		{
+			var openFileDialog = new Microsoft.Win32.OpenFileDialog();
+			if (openFileDialog.ShowDialog() == true)
+				ExeTextBox.Text = openFileDialog.FileName;
+		}
+
+		private void WorkingDirFileSelectButton_Click(object sender, RoutedEventArgs e)
+		{
+			var openFileDialog = new Microsoft.Win32.OpenFileDialog();
+			if (openFileDialog.ShowDialog() == true)
+				WorkingDirTextBox.Text = openFileDialog.FileName;
+		}
 	}
 }

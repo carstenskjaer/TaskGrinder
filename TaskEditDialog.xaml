@@ -16,11 +16,11 @@
 		<Button Content="OK" HorizontalAlignment="Left" Margin="10,239,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.219,0.32" IsDefault="True" Click="OKButton_Click"/>
 		<Button Content="Cancel" HorizontalAlignment="Left" Margin="97,239,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.219,0.32" IsCancel="True" Click="CancelButton_Click"/>
 		<Label Content="Exe:" HorizontalAlignment="Left" Margin="5,39,0,0" VerticalAlignment="Top"/>
-		<TextBox HorizontalAlignment="Left" Height="23" Margin="85,42,0,0" TextWrapping="Wrap" Text="{Binding FileName}" VerticalAlignment="Top" Width="293"/>
-		<Button Content="..." HorizontalAlignment="Left" Margin="383,45,0,0" VerticalAlignment="Top" Width="41" RenderTransformOrigin="-0.219,0.32"/>
+		<TextBox x:Name="ExeTextBox" HorizontalAlignment="Left" Height="23" Margin="85,42,0,0" TextWrapping="Wrap" Text="{Binding FileName}" VerticalAlignment="Top" Width="293"/>
+		<Button x:Name="ExeFileSelectButton" Content="..." HorizontalAlignment="Left" Margin="383,45,0,0" VerticalAlignment="Top" Width="41" RenderTransformOrigin="-0.219,0.32" Click="ExeFileSelectButton_Click"/>
 		<Label Content="Working dir:" HorizontalAlignment="Left" Margin="5,71,0,0" VerticalAlignment="Top"/>
-		<TextBox HorizontalAlignment="Left" Height="23" Margin="85,74,0,0" TextWrapping="Wrap" Text="{Binding WorkingDir}" VerticalAlignment="Top" Width="293"/>
-		<Button Content="..." HorizontalAlignment="Left" Margin="383,77,0,0" VerticalAlignment="Top" Width="41" RenderTransformOrigin="-0.219,0.32"/>
+		<TextBox x:Name="WorkingDirTextBox" HorizontalAlignment="Left" Height="23" Margin="85,74,0,0" TextWrapping="Wrap" Text="{Binding WorkingDir}" VerticalAlignment="Top" Width="293"/>
+		<Button x:Name="WorkingDirFileSelectButton" Content="..." HorizontalAlignment="Left" Margin="383,77,0,0" VerticalAlignment="Top" Width="41" RenderTransformOrigin="-0.219,0.32" Click="WorkingDirFileSelectButton_Click"/>
 		<Label Content="Arguments:" HorizontalAlignment="Left" Margin="5,105,0,0" VerticalAlignment="Top"/>
 		<TextBox HorizontalAlignment="Left" Height="103" Margin="85,108,0,0" TextWrapping="Wrap" Text="{Binding Arguments}" VerticalAlignment="Top" Width="339"/>
 	</Grid>

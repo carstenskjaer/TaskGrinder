@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -102,6 +103,7 @@ namespace TaskGrinder
 			try
 			{
 				WorkList.Add(task.GetTaskRunner());
+				signal.Release();
 			}
 			catch(Exception e)
 			{
@@ -113,11 +115,34 @@ namespace TaskGrinder
 		{
 			Tasks.Remove(task);
 		}
+
 		public void EditTask(Task task)
 		{
 			var taskEditDialog = new TaskEditDialog(task);
 			var result = taskEditDialog.ShowDialog();
 			NotifyPropertyChanged("Tasks");
+		}
+
+		
+		private SemaphoreSlim signal = new SemaphoreSlim(0, 1);
+
+		 private async void RunnerTask()
+		{
+			while(true)
+			{
+				if (RunState == RunState.Paused)
+				{
+					await signal.WaitAsync();
+				}
+
+				if (WorkList.Count == 0)
+				{
+					await signal.WaitAsync();
+				}
+
+				await WorkList.First(t => t.State == TaskRunner.RunState.NotStarted).Execute();
+				
+			}
 		}
 	}
 }
