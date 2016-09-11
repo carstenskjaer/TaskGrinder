@@ -1,13 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TaskGrinder
 {
-	public class TaskRunner
+	public enum RunState { NotStarted, Running, Done }
+
+	public class TaskRunner : INotifyPropertyChanged
 	{
+		// Support property binding from WPF gui
+		public event PropertyChangedEventHandler PropertyChanged;
+		private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+		{
+			if (PropertyChanged != null)
+			{
+				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+
 		public TaskRunner(string name, string fileName, string workingDir, string arguments)
 		{
 			Name = name;
@@ -23,15 +37,21 @@ namespace TaskGrinder
 
 		public override string ToString() => Name;
 
-		public enum RunState { NotStarted, Running, Done }
-
-		public RunState State { get; private set; } = RunState.NotStarted;
+		private RunState _runState = RunState.NotStarted;
+		public RunState RunState
+		{
+			get { return _runState; }
+			private set
+			{
+				if (value != _runState) { _runState = value; NotifyPropertyChanged(); }
+			}
+		}
 
 		public string Output { get; private set; }
 
 		public int ReturnCode { get; private set; } = -1;
 
-		public bool Succeeded { get { return State == RunState.Done && ReturnCode == 0; } }
+		public bool Succeeded { get { return RunState == RunState.Done && ReturnCode == 0; } }
 
 		public Task<bool> Execute()
 		{
@@ -53,14 +73,14 @@ namespace TaskGrinder
 			{
 				Output = process.StandardOutput.ReadToEnd();
 				ReturnCode = process.ExitCode;
-				State = RunState.Done;
+				RunState = RunState.Done;
 				tcs.SetResult(Succeeded);
 				process.Dispose();
 			};
 
 			process.Start();
 
-			State = RunState.Running;
+			RunState = RunState.Running;
 
 			return tcs.Task;
 		}

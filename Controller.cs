@@ -122,7 +122,7 @@ namespace TaskGrinder
 		{
 			while(true)
 			{
-				var task = WorkList.FirstOrDefault(t => t.State == TaskRunner.RunState.NotStarted);
+				var task = WorkList.FirstOrDefault(t => t.RunState == RunState.NotStarted);
 
 				if (Paused || task == null)
 				{

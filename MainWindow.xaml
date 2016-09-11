@@ -63,6 +63,31 @@
 				</Button>
 			</StackPanel>
 			<ListBox x:Name="workListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=WorkList}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal" >
+							<Image Width="18" Height="18">
+								<Image.Style>
+									<Style TargetType="Image">
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding RunState}" Value="NotStarted">
+												<Setter Property="Source" Value="Resources/button-pause.png"/>
+											</DataTrigger >
+											<DataTrigger Binding="{Binding RunState}" Value="Running">
+												<Setter Property="Source" Value="Resources/button-working.png"/>
+											</DataTrigger >
+											<DataTrigger Binding="{Binding RunState}" Value="Done">
+												<Setter Property="Source" Value="Resources/button-ready.png"/>
+											</DataTrigger >
+										</Style.Triggers>
+									</Style>
+								</Image.Style>
+							</Image>
+							<TextBlock Text="{Binding Name}">
+							</TextBlock>
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
 			</ListBox>
 		</DockPanel>
         <TextBlock x:Name="textBlock" Margin="5,5,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" Grid.ColumnSpan="2"/>
