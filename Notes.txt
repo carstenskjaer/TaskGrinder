@@ -1,34 +1,4 @@
-Run state: Done, Working, Paused, Halted (due to error)
 
-
-
-
-<Button x:Name="ProcessButton" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ProcessButton_Click">
-	<Image Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center" >
-		<Image.Style>
-			<Style TargetType="{x:Type Image}">
-				<Style.Triggers>
-					<DataTrigger Binding="{Binding ElementName=Window, Path=Server.IsProcessing, Mode=OneWay}" Value="True">
-						<Setter Property="Source" Value="../Resources/sign-check.png" />
-					</DataTrigger>
-					<DataTrigger Binding="{Binding ElementName=Window, Path=Server.IsProcessing, Mode=OneWay}" Value="False">
-						<Setter Property="Source" Value="../Resources/sign-error.png" />
-					</DataTrigger>
-				</Style.Triggers>
-			</Style>
-		</Image.Style>
-	</Image>
-</Button>
-
-			
-public sealed partial class ResourceServer : INotifyPropertyChanged
-	{
-        // Support property binding from WPF gui
-        public event PropertyChangedEventHandler PropertyChanged;
-	    private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-	    {
-	        if (PropertyChanged != null)
-	        {
-	            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-	        }
-	    }
+Icons:
+https://www.iconfinder.com/iconsets/super-mono-basic
+		

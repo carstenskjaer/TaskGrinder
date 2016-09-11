@@ -19,7 +19,9 @@
         <DockPanel Grid.Column="0">
 			<Label Content="Tasks:" DockPanel.Dock="Top"/>
 			<StackPanel DockPanel.Dock="Bottom">
-				<Button Content="Add" HorizontalAlignment="Right" Margin="5,5,5,5" Click="Button_Click"/>
+				<Button HorizontalAlignment="Right" Margin="5,5,5,5" Click="AddButton_Click">
+					<Image Source="Resources/add-blue.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="24"/>
+				</Button>
 			</StackPanel>
 			<ListBox x:Name="taskListBox" Margin="10,10,10,10" ItemsSource="{Binding Tasks}" MouseDoubleClick="taskListBox_MouseDoubleClick">
 				<ListBox.Resources>
@@ -51,10 +53,10 @@
 							<Style TargetType="{x:Type Image}">
 								<Style.Triggers>
 									<DataTrigger Binding="{Binding Path=Paused, Mode=OneWay}" Value="false">
-										<Setter Property="Source" Value="Resources/button-ready.png" />
+										<Setter Property="Source" Value="Resources/play-green.png" />
 									</DataTrigger>
 									<DataTrigger Binding="{Binding Path=Paused, Mode=OneWay}" Value="true">
-										<Setter Property="Source" Value="Resources/button-pause.png" />
+										<Setter Property="Source" Value="Resources/pause-yellow.png" />
 									</DataTrigger>
 								</Style.Triggers>
 							</Style>
@@ -66,18 +68,18 @@
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Horizontal" >
-							<Image Width="18" Height="18">
+							<Image Width="18" Height="18" Margin="0,0,5,0">
 								<Image.Style>
 									<Style TargetType="Image">
 										<Style.Triggers>
 											<DataTrigger Binding="{Binding RunState}" Value="NotStarted">
-												<Setter Property="Source" Value="Resources/button-pause.png"/>
+												<Setter Property="IsEnabled" Value="true"/>
 											</DataTrigger >
 											<DataTrigger Binding="{Binding RunState}" Value="Running">
-												<Setter Property="Source" Value="Resources/button-working.png"/>
+												<Setter Property="Source" Value="Resources/gear-blue.png"/>
 											</DataTrigger >
 											<DataTrigger Binding="{Binding RunState}" Value="Done">
-												<Setter Property="Source" Value="Resources/button-ready.png"/>
+												<Setter Property="Source" Value="Resources/check-green.png"/>
 											</DataTrigger >
 										</Style.Triggers>
 									</Style>

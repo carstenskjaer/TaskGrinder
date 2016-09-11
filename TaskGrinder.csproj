@@ -107,10 +107,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\button-error.png" />
-    <Resource Include="Resources\button-pause.png" />
-    <Resource Include="Resources\button-ready.png" />
-    <Resource Include="Resources\button-working.png" />
+    <Resource Include="Resources\check-green.png" />
+    <Resource Include="Resources\exclamation-red.png" />
+    <Resource Include="Resources\gear-blue.png" />
+    <Resource Include="Resources\pause-yellow.png" />
+    <Resource Include="Resources\play-green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\add-blue.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
