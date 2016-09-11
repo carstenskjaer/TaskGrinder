@@ -13,8 +13,23 @@ int main(int argc, char** argv)
 		printf("%i: %s\n", i, argv[i]);
 	}
 
-	Sleep(2000);
+	int sleepTimeMS = 1000;
+	if (argc > 1)
+	{
+		sleepTimeMS = atoi(argv[1]);
+	}
 
-    return 0;
+	int returnCode = 0;
+	if (argc > 2)
+	{
+		returnCode = atoi(argv[2]);
+	}
+
+	printf("Sleeping %i\n", sleepTimeMS);
+	Sleep(sleepTimeMS);
+
+	printf("Returning %i\n", returnCode);
+
+	return returnCode;
 }
 
