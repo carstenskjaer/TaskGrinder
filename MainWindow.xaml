@@ -78,9 +78,20 @@
 											<DataTrigger Binding="{Binding RunState}" Value="Running">
 												<Setter Property="Source" Value="Resources/gear-blue.png"/>
 											</DataTrigger >
-											<DataTrigger Binding="{Binding RunState}" Value="Done">
+											<MultiDataTrigger>
+												<MultiDataTrigger.Conditions>
+													<Condition Binding="{Binding RunState}" Value="Done"/>
+													<Condition Binding="{Binding Succeeded}" Value="true"/>
+												</MultiDataTrigger.Conditions>
 												<Setter Property="Source" Value="Resources/check-green.png"/>
-											</DataTrigger >
+											</MultiDataTrigger>
+											<MultiDataTrigger>
+												<MultiDataTrigger.Conditions>
+													<Condition Binding="{Binding RunState}" Value="Done"/>
+													<Condition Binding="{Binding Succeeded}" Value="false"/>
+												</MultiDataTrigger.Conditions>
+												<Setter Property="Source" Value="Resources/exclamation-red.png"/>
+											</MultiDataTrigger>
 										</Style.Triggers>
 									</Style>
 								</Image.Style>
