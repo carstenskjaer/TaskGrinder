@@ -41,13 +41,15 @@ namespace TaskGrinder
 		public RunState RunState
 		{
 			get { return _runState; }
-			private set
-			{
-				if (value != _runState) { _runState = value; NotifyPropertyChanged(); }
-			}
+			private set { if (value != _runState) { _runState = value; NotifyPropertyChanged(); } }
 		}
 
-		public string Output { get; private set; }
+		private string _Output;
+		public string Output
+		{
+			get { return _Output; }
+			private set { if (value != _Output) { _Output = value; NotifyPropertyChanged(); } }
+		}
 
 		public int ReturnCode { get; private set; } = -1;
 
