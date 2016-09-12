@@ -12,11 +12,11 @@
 			<ColumnDefinition/>
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <DockPanel Grid.Column="0">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<DockPanel Grid.Column="0">
 			<Label Content="Tasks:" DockPanel.Dock="Top"/>
 			<StackPanel DockPanel.Dock="Bottom">
 				<Button HorizontalAlignment="Right" Margin="5,5,5,5" Click="AddButton_Click">
@@ -103,6 +103,6 @@
 				</ListBox.ItemTemplate>
 			</ListBox>
 		</DockPanel>
-        <TextBlock Background="Black" Foreground="White" x:Name="textBlock" Padding="5,5,5,5" Grid.Row="1" TextWrapping="Wrap" Text="{Binding ElementName=WorkListBox, Path=SelectedItem.Output, Mode=OneWay}" Grid.ColumnSpan="2"/>
-    </Grid>
+		<TextBox Background="Black" Foreground="White" x:Name="textBlock" Padding="5,5,5,5" Grid.Row="1" TextWrapping="Wrap" Text="{Binding ElementName=WorkListBox, Path=SelectedItem.Output, Mode=OneWay}" Grid.ColumnSpan="2"/>
+	</Grid>
 </Window>
