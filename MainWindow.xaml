@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskGrinder"
         mc:Ignorable="d"
-        Title="MainWindow" Height="463.905" Width="525"
+        Title="MainWindow" Height="463.905" Width="525" MouseMove="Window_MouseMove"
         >
 	<Grid Margin="5,5,5,5">
 		<Grid.ColumnDefinitions>
@@ -23,7 +23,7 @@
 					<Image Source="Resources/add-blue.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="24"/>
 				</Button>
 			</StackPanel>
-			<ListBox x:Name="taskListBox" Margin="10,10,10,10" ItemsSource="{Binding Tasks}" MouseDoubleClick="taskListBox_MouseDoubleClick">
+			<ListBox x:Name="taskListBox" Margin="10,10,10,10" ItemsSource="{Binding Tasks}" MouseDoubleClick="taskListBox_MouseDoubleClick" PreviewMouseLeftButtonDown="taskListBox_PreviewMouseLeftButtonDown">
 				<ListBox.Resources>
 					<ContextMenu x:Key="listBoxContextMenu">
 						<MenuItem Header="Delete" Click="DeleteTask_Click"/>
@@ -64,7 +64,7 @@
 					</Image>
 				</Button>
 			</StackPanel>
-			<ListBox x:Name="WorkListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=WorkList}">
+			<ListBox x:Name="WorkListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=WorkList}" AllowDrop="True" DragEnter="WorkListBox_DragEnter" Drop="WorkListBox_Drop">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Horizontal" >

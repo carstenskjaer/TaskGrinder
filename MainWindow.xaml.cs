@@ -62,5 +62,93 @@ namespace TaskGrinder
 		{
 			Controller.Instance.Paused = !Controller.Instance.Paused;
 		}
+
+		private Task draggedTask;
+
+		private void taskListBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			if (draggedTask != null) return;
+
+			UIElement element = taskListBox.InputHitTest(e.GetPosition(taskListBox)) as UIElement;
+
+			while (element != null)
+			{
+				if (element is ListBoxItem)
+				{
+					draggedTask = (Task)((ListBoxItem)element).Content;
+					break;
+				}
+				element = VisualTreeHelper.GetParent(element) as UIElement;
+			}
+		}
+
+		private void Window_MouseMove(object sender, MouseEventArgs e)
+		{
+			if (draggedTask == null)
+				return;
+
+			if (e.LeftButton == MouseButtonState.Released)
+			{
+				draggedTask = null;
+				return;
+			}
+
+			DataObject obj = new DataObject("TaskDrag", draggedTask);
+			DragDrop.DoDragDrop(sender as Window, obj, DragDropEffects.All);
+		}
+
+		private void WorkListBox_DragEnter(object sender, DragEventArgs e)
+		{
+			if (draggedTask == null || e.Data.GetDataPresent("TaskDrag", true) == false)
+				e.Effects = DragDropEffects.None;
+			else
+				e.Effects = DragDropEffects.Move;
+		}
+
+		private void WorkListBox_Drop(object sender, DragEventArgs e)
+		{
+			var newTaskRunner = draggedTask.GetTaskRunner();
+
+			var mousePos = e.GetPosition(WorkListBox);
+			var droppedOn = (TaskRunner)GetObjectAtPoint<ListBoxItem>(WorkListBox, mousePos);
+			if (droppedOn != null)
+			{
+				var index = Controller.Instance.WorkList.IndexOf(droppedOn);
+				Controller.Instance.WorkList.Insert(index, newTaskRunner);
+			}
+			else
+			{
+				Controller.Instance.WorkList.Add(newTaskRunner);
+			}
+
+		}
+
+		public object GetObjectAtPoint<ItemContainer>(ItemsControl control, Point p)
+									 where ItemContainer : DependencyObject
+		{
+			// ItemContainer - can be ListViewItem, or TreeViewItem and so on(depends on control)
+			ItemContainer obj = GetContainerAtPoint<ItemContainer>(control, p);
+			if (obj == null)
+				return null;
+
+			return control.ItemContainerGenerator.ItemFromContainer(obj);
+		}
+
+		public ItemContainer GetContainerAtPoint<ItemContainer>(ItemsControl control, Point p)
+								 where ItemContainer : DependencyObject
+		{
+			HitTestResult result = VisualTreeHelper.HitTest(control, p);
+			DependencyObject obj = result.VisualHit;
+
+			while (VisualTreeHelper.GetParent(obj) != null && !(obj is ItemContainer))
+			{
+				obj = VisualTreeHelper.GetParent(obj);
+			}
+
+			// Will return null if not found
+			return obj as ItemContainer;
+		}
+
+
 	}
 }
