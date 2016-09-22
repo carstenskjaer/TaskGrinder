@@ -116,6 +116,11 @@ namespace TaskGrinder
 			SaveTasks();
 		}
 
+		public void CancelTask(TaskRunner taskRunner)
+		{
+			WorkList.Remove(taskRunner);
+		}
+
 		private SemaphoreSlim signal = new SemaphoreSlim(0, 1);
 
 		private async void RunnerTask()

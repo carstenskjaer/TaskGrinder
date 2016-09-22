@@ -64,7 +64,7 @@
 					</Image>
 				</Button>
 			</StackPanel>
-			<ListBox x:Name="WorkListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=WorkList}" AllowDrop="True" DragEnter="WorkListBox_DragEnter" Drop="WorkListBox_Drop">
+			<ListBox x:Name="WorkListBox" Margin="10,10,10,10" ItemsSource="{Binding Path=WorkList}" AllowDrop="True" DragEnter="WorkListBox_DragEnter" Drop="WorkListBox_Drop" MouseDoubleClick="WorkListBox_MouseDoubleClick" DragOver="WorkListBox_DragEnter">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Horizontal" >

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -92,9 +93,11 @@ namespace TaskGrinder
 				draggedTask = null;
 				return;
 			}
-
-			DataObject obj = new DataObject("TaskDrag", draggedTask);
-			DragDrop.DoDragDrop(sender as Window, obj, DragDropEffects.All);
+			if (e.LeftButton == MouseButtonState.Pressed)
+			{
+				DataObject obj = new DataObject("TaskDrag", draggedTask);
+				DragDrop.DoDragDrop(sender as Window, obj, DragDropEffects.All);
+			}
 		}
 
 		private void WorkListBox_DragEnter(object sender, DragEventArgs e)
@@ -103,15 +106,13 @@ namespace TaskGrinder
 			if (draggedTask != null && e.Data.GetDataPresent("TaskDrag", true))
 			{
 				var mousePos = e.GetPosition(WorkListBox);
-				var droppedOn = (TaskRunner)GetObjectAtPoint<ListBoxItem>(WorkListBox, mousePos);
-				if (droppedOn != null)
+				var droppedOn = GetObjectAtPoint<ListBoxItem>(WorkListBox, mousePos) as TaskRunner;
+				if (droppedOn == null || droppedOn.RunState == RunState.NotStarted)
 				{
-					if (droppedOn.RunState == RunState.NotStarted)
-					{
-						e.Effects = DragDropEffects.Move;
-					}
+					e.Effects = DragDropEffects.Move;
 				}
 			}
+			e.Handled = true;
 		}
 
 		private void WorkListBox_Drop(object sender, DragEventArgs e)
@@ -158,6 +159,13 @@ namespace TaskGrinder
 			return obj as ItemContainer;
 		}
 
-
+		private void WorkListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			var selectedTaskRunner = WorkListBox.SelectedItem as TaskRunner;
+			if (selectedTaskRunner != null && selectedTaskRunner.RunState == RunState.NotStarted)
+			{
+				Controller.Instance.CancelTask(selectedTaskRunner);
+			}
+		}
 	}
 }
