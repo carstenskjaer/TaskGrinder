@@ -106,7 +106,7 @@ namespace TaskGrinder
 			if (draggedTask != null && e.Data.GetDataPresent("TaskDrag", true))
 			{
 				var mousePos = e.GetPosition(WorkListBox);
-				var droppedOn = GetObjectAtPoint<ListBoxItem>(WorkListBox, mousePos) as TaskRunner;
+				var droppedOn = Util.GetObjectAtPoint<ListBoxItem>(WorkListBox, mousePos) as TaskRunner;
 				if (droppedOn == null || droppedOn.RunState == RunState.NotStarted)
 				{
 					e.Effects = DragDropEffects.Move;
@@ -120,7 +120,7 @@ namespace TaskGrinder
 			var newTaskRunner = draggedTask.GetTaskRunner();
 
 			var mousePos = e.GetPosition(WorkListBox);
-			var droppedOn = (TaskRunner)GetObjectAtPoint<ListBoxItem>(WorkListBox, mousePos);
+			var droppedOn = (TaskRunner)Util.GetObjectAtPoint<ListBoxItem>(WorkListBox, mousePos);
 			if (droppedOn != null)
 			{
 				var index = Controller.Instance.WorkList.IndexOf(droppedOn);
@@ -130,33 +130,6 @@ namespace TaskGrinder
 			{
 				Controller.Instance.WorkList.Add(newTaskRunner);
 			}
-
-		}
-
-		public object GetObjectAtPoint<ItemContainer>(ItemsControl control, Point p)
-									 where ItemContainer : DependencyObject
-		{
-			// ItemContainer - can be ListViewItem, or TreeViewItem and so on(depends on control)
-			ItemContainer obj = GetContainerAtPoint<ItemContainer>(control, p);
-			if (obj == null)
-				return null;
-
-			return control.ItemContainerGenerator.ItemFromContainer(obj);
-		}
-
-		public ItemContainer GetContainerAtPoint<ItemContainer>(ItemsControl control, Point p)
-								 where ItemContainer : DependencyObject
-		{
-			HitTestResult result = VisualTreeHelper.HitTest(control, p);
-			DependencyObject obj = result.VisualHit;
-
-			while (VisualTreeHelper.GetParent(obj) != null && !(obj is ItemContainer))
-			{
-				obj = VisualTreeHelper.GetParent(obj);
-			}
-
-			// Will return null if not found
-			return obj as ItemContainer;
 		}
 
 		private void WorkListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
