@@ -99,10 +99,19 @@ namespace TaskGrinder
 
 		private void WorkListBox_DragEnter(object sender, DragEventArgs e)
 		{
-			if (draggedTask == null || e.Data.GetDataPresent("TaskDrag", true) == false)
-				e.Effects = DragDropEffects.None;
-			else
-				e.Effects = DragDropEffects.Move;
+			e.Effects = DragDropEffects.None;
+			if (draggedTask != null && e.Data.GetDataPresent("TaskDrag", true))
+			{
+				var mousePos = e.GetPosition(WorkListBox);
+				var droppedOn = (TaskRunner)GetObjectAtPoint<ListBoxItem>(WorkListBox, mousePos);
+				if (droppedOn != null)
+				{
+					if (droppedOn.RunState == RunState.NotStarted)
+					{
+						e.Effects = DragDropEffects.Move;
+					}
+				}
+			}
 		}
 
 		private void WorkListBox_Drop(object sender, DragEventArgs e)
