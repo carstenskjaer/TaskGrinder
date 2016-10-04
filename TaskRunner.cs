@@ -44,11 +44,10 @@ namespace TaskGrinder
 			private set { if (value != _runState) { _runState = value; NotifyPropertyChanged(); } }
 		}
 
-		private string _Output;
+		private StringBuilder _Output = new StringBuilder();
 		public string Output
 		{
-			get { return _Output; }
-			private set { if (value != _Output) { _Output = value; NotifyPropertyChanged(); } }
+			get { return _Output.ToString(); }
 		}
 
 		public int ReturnCode { get; private set; } = -1;
@@ -67,24 +66,32 @@ namespace TaskGrinder
 					Arguments = Arguments,
 					UseShellExecute = false,
 					RedirectStandardOutput = true,
+					//CreateNoWindow = true,
 				},
 				EnableRaisingEvents = true,
 			};
 
 			process.Exited += (sender, args) =>
 			{
-				Output = process.StandardOutput.ReadToEnd();
 				ReturnCode = process.ExitCode;
 				RunState = RunState.Done;
 				tcs.SetResult(Succeeded);
 				process.Dispose();
 			};
-
+			
+			process.OutputDataReceived += (sender, e) =>
+			{
+				_Output.AppendLine(e.Data);
+				NotifyPropertyChanged("Output");
+			};
 			process.Start();
+
+			process.BeginOutputReadLine();
 
 			RunState = RunState.Running;
 
 			return tcs.Task;
 		}
+
 	}
 }
