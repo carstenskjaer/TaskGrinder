@@ -56,6 +56,10 @@ namespace TaskGrinder
 
 		public Task<bool> Execute()
 		{
+
+			Win32ProcessUtils.RunSubProcess(FileName + " " + Arguments);
+
+
 			var tcs = new TaskCompletionSource<bool>();
 
 			var process = new System.Diagnostics.Process
